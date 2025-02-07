@@ -4,7 +4,7 @@ interface AvatarWrapperInterface { src: string, alt: string, fallbackText?: stri
 
 const AvatarWrapper = ({ src, alt, fallbackText }: AvatarWrapperInterface) => {
   return (
-    <Avatar>
+    <Avatar className='w-40 h-10/12'>
         <AvatarImage src={src} alt={alt} />
         <AvatarFallback>{fallbackText ?? alt}</AvatarFallback>
     </Avatar>

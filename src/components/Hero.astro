@@ -1,15 +1,16 @@
 ---
 import AvatarWrapper from './containers/AvatarWrapper';
-import ToggleTheme from './ui/ToggleTheme';
 ---
-
-
-<section class="mx-auto max-w-3xl">
-    <div class="flex justify-center">
-        <h1 class="text-3xl">Hi 👋 I'm Mauricio... but you can call me Mauro 😉</h1>
-        <AvatarWrapper client:load src="https://avatar.iran.liara.run/public/boy" alt="Mau" />
-        <ToggleTheme client:load />
+<section class="flex mx-auto max-w-3xl justify-center items-center gap-10">
+    <div class="flex flex-col gap-5">
+        <div>
+            <h1 class="text-3xl">Hi 👋 I'm Mauricio...</h1>
+            <p class="text-xs font-bold">but you can call me Mauro</p>
+        </div>
+        <p>I’m a passionate Frontend Developer with 8 years of experience as a Fullstack Developer, focused on building dynamic and engaging web applications. My expertise with React, JavaScript, and TypeScript, along with backend experience using Node.js, allows me to create seamless and high-performing digital experiences. </p>
     </div>
-    <p>I’m a passionate Frontend Developer with 8 years of experience as a Fullstack Developer, focused on building dynamic and engaging web applications. My expertise with React, JavaScript, and TypeScript, along with backend experience using Node.js, allows me to create seamless and high-performing digital experiences. </p>
+    <AvatarWrapper client:load src="https://avatar.iran.liara.run/public/boy" alt="Mau" />
 </section>
+
+<!-- codear el fornt donde hay form dentro d una tabla en la cual hay multiples de informacion -->
 
