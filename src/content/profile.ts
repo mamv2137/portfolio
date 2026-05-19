@@ -101,24 +101,24 @@ export const projects: Project[] = [
     title: 'portfolio.tui',
     blurb: 'This site — a TUI-flavored portfolio in Astro + React.',
     stack: ['astro', 'react', 'tailwind'],
-    href: 'https://github.com/mauricio',
+    href: 'https://github.com/mamv2137',
   },
   {
     title: 'design-system',
     blurb: 'Component library and tokens for internal product surfaces.',
     stack: ['react', 'ts', 'storybook'],
-    href: 'https://github.com/mauricio',
+    href: 'https://github.com/mamv2137',
   },
   {
     title: 'side-quests',
     blurb: 'CLI tools and experiments — keep the curiosity warm.',
     stack: ['node', 'ts'],
-    href: 'https://github.com/mauricio',
+    href: 'https://github.com/mamv2137',
   },
 ];
 
 export const contacts: Contact[] = [
-  { channel: 'email', value: 'mauro@platzi.com', href: 'mailto:mauro@platzi.com', key: 'm' },
-  { channel: 'github', value: '@mauricio', href: 'https://github.com/mauricio', key: 'g' },
-  { channel: 'linkedin', value: '/in/mauricio', href: 'https://linkedin.com/in/mauricio', key: 'l' },
+  { channel: 'email', value: 'qiubitlabs@gmail.com', href: 'mailto:qiubitlabs@gmail.com', key: 'm' },
+  { channel: 'github', value: '@mamv2137', href: 'https://github.com/mamv2137', key: 'g' },
+  { channel: 'linkedin', value: '/in/mamv2137', href: 'https://linkedin.com/in/mamv2137', key: 'l' },
 ];
