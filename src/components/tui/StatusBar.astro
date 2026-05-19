@@ -1,0 +1,51 @@
+---
+type Tone = 'default' | 'accent' | 'success' | 'warn' | 'error' | 'info' | 'muted';
+
+export interface Segment {
+  label?: string;
+  value: string;
+  tone?: Tone;
+  id?: string;
+  hideOnMobile?: boolean;
+}
+
+export interface Props {
+  segments: Segment[];
+  position?: 'top' | 'bottom';
+  class?: string;
+}
+
+const { segments, position = 'bottom', class: className = '' } = Astro.props;
+
+const toneClass = (t?: Tone) => {
+  switch (t) {
+    case 'accent': return 'text-tui-accent';
+    case 'success': return 'text-tui-success';
+    case 'warn': return 'text-tui-warn';
+    case 'error': return 'text-tui-error';
+    case 'info': return 'text-tui-info';
+    case 'muted': return 'text-tui-muted';
+    default: return 'text-tui-fg';
+  }
+};
+---
+
+<div
+  role="status"
+  aria-live="off"
+  class={`flex flex-wrap items-center gap-x-3 gap-y-1 border-tui-border bg-tui-bg-elev font-tui text-xs px-3 py-1 ${
+    position === 'top' ? 'border-b' : 'border-t'
+  } ${className}`}
+>
+  {segments.map((seg, i) => (
+    <>
+      {i > 0 && (
+        <span aria-hidden="true" class="text-tui-border select-none">│</span>
+      )}
+      <span class={`${seg.hideOnMobile ? 'hidden sm:inline-flex' : 'inline-flex'} items-center gap-1`} data-segment={seg.id ?? ''}>
+        {seg.label && <span class="text-tui-muted">{seg.label}:</span>}
+        <span class={toneClass(seg.tone)}>{seg.value}</span>
+      </span>
+    </>
+  ))}
+</div>

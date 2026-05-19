@@ -1,6 +1,10 @@
+@import '@fontsource-variable/jetbrains-mono/index.css';
+@import '@fontsource-variable/jetbrains-mono/wght-italic.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -27,8 +31,23 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
+
+    /* ── TUI tokens (default — catppuccin · light) ───────────────────── */
+    --tui-bg: #f8f8f2;
+    --tui-bg-elev: #ecece2;
+    --tui-fg: #1a1a1a;
+    --tui-muted: #5c6370;
+    --tui-border: #c8c8c0;
+    --tui-accent: #2d6a4f;
+    --tui-success: #2d6a4f;
+    --tui-warn: #9a6700;
+    --tui-error: #a40e26;
+    --tui-info: #1f6feb;
+    --tui-selection: #ebe9d8;
+    --tui-caret: #2d6a4f;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -53,14 +72,211 @@
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
+
+    /* ── TUI tokens (default — catppuccin · dark) ────────────────────── */
+    --tui-bg: #0b0f10;
+    --tui-bg-elev: #11161a;
+    --tui-fg: #cdd6f4;
+    --tui-muted: #7f849c;
+    --tui-border: #313244;
+    --tui-accent: #a6e3a1;
+    --tui-success: #a6e3a1;
+    --tui-warn: #f9e2af;
+    --tui-error: #f38ba8;
+    --tui-info: #89b4fa;
+    --tui-selection: #1e2030;
+    --tui-caret: #a6e3a1;
+  }
+
+  /* ── monokai ──────────────────────────────────────────────────────── */
+  [data-theme='monokai'] {
+    --tui-bg: #fafafa;
+    --tui-bg-elev: #f0f0ea;
+    --tui-fg: #272822;
+    --tui-muted: #6d6a5b;
+    --tui-border: #d4d2c4;
+    --tui-accent: #4f7f00;
+    --tui-success: #4f7f00;
+    --tui-warn: #b85c00;
+    --tui-error: #a40006;
+    --tui-info: #0064a8;
+    --tui-selection: #e6e6da;
+    --tui-caret: #4f7f00;
+  }
+  [data-theme='monokai'].dark {
+    --tui-bg: #272822;
+    --tui-bg-elev: #2f3029;
+    --tui-fg: #f8f8f2;
+    --tui-muted: #a8a78f;
+    --tui-border: #3e3d32;
+    --tui-accent: #a6e22e;
+    --tui-success: #a6e22e;
+    --tui-warn: #fd971f;
+    --tui-error: #f92672;
+    --tui-info: #66d9ef;
+    --tui-selection: #49483e;
+    --tui-caret: #a6e22e;
+  }
+
+  /* ── dracula ──────────────────────────────────────────────────────── */
+  [data-theme='dracula'] {
+    --tui-bg: #f8f8f2;
+    --tui-bg-elev: #eeeeea;
+    --tui-fg: #282a36;
+    --tui-muted: #5f6480;
+    --tui-border: #d0d0d8;
+    --tui-accent: #007a3d;
+    --tui-success: #007a3d;
+    --tui-warn: #8a6300;
+    --tui-error: #a4001f;
+    --tui-info: #005a8a;
+    --tui-selection: #e6e7ed;
+    --tui-caret: #6b54a4;
+  }
+  [data-theme='dracula'].dark {
+    --tui-bg: #282a36;
+    --tui-bg-elev: #2f3142;
+    --tui-fg: #f8f8f2;
+    --tui-muted: #a4b0d4;
+    --tui-border: #44475a;
+    --tui-accent: #50fa7b;
+    --tui-success: #50fa7b;
+    --tui-warn: #f1fa8c;
+    --tui-error: #ff5555;
+    --tui-info: #8be9fd;
+    --tui-selection: #44475a;
+    --tui-caret: #bd93f9;
+  }
+
+  /* ── nord ─────────────────────────────────────────────────────────── */
+  [data-theme='nord'] {
+    --tui-bg: #eceff4;
+    --tui-bg-elev: #e0e4ec;
+    --tui-fg: #2e3440;
+    --tui-muted: #545a6a;
+    --tui-border: #c2c8d3;
+    --tui-accent: #2e6e8c;
+    --tui-success: #437d3c;
+    --tui-warn: #855700;
+    --tui-error: #a13a44;
+    --tui-info: #2e6e8c;
+    --tui-selection: #d8dee9;
+    --tui-caret: #2e6e8c;
+  }
+  [data-theme='nord'].dark {
+    --tui-bg: #2e3440;
+    --tui-bg-elev: #353b48;
+    --tui-fg: #d8dee9;
+    --tui-muted: #9099a8;
+    --tui-border: #3b4252;
+    --tui-accent: #88c0d0;
+    --tui-success: #a3be8c;
+    --tui-warn: #ebcb8b;
+    --tui-error: #bf616a;
+    --tui-info: #81a1c1;
+    --tui-selection: #434c5e;
+    --tui-caret: #88c0d0;
+  }
+
+  /* ── tokyo-night ──────────────────────────────────────────────────── */
+  [data-theme='tokyo-night'] {
+    --tui-bg: #e6e7ed;
+    --tui-bg-elev: #dadcde;
+    --tui-fg: #1a1b26;
+    --tui-muted: #5d637a;
+    --tui-border: #c4c6cf;
+    --tui-accent: #5a4a8c;
+    --tui-success: #335f2e;
+    --tui-warn: #8a5a00;
+    --tui-error: #8c2a3a;
+    --tui-info: #0c5b80;
+    --tui-selection: #d6d6db;
+    --tui-caret: #5a4a8c;
+  }
+  [data-theme='tokyo-night'].dark {
+    --tui-bg: #1a1b26;
+    --tui-bg-elev: #20212e;
+    --tui-fg: #c0caf5;
+    --tui-muted: #8089b3;
+    --tui-border: #292e42;
+    --tui-accent: #bb9af7;
+    --tui-success: #9ece6a;
+    --tui-warn: #e0af68;
+    --tui-error: #f7768e;
+    --tui-info: #7dcfff;
+    --tui-selection: #283457;
+    --tui-caret: #bb9af7;
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: var(--tui-selection);
+    color: var(--tui-fg);
+  }
+}
+
+/* ── Reduced-motion guard ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html.motion-off,
+html.motion-off *,
+html.motion-off *::before,
+html.motion-off *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* ── TUI utility classes ───────────────────────────────────────────── */
+@layer utilities {
+  .font-tui {
+    font-family: 'JetBrains Mono Variable', ui-monospace, 'JetBrains Mono', Menlo,
+      Consolas, 'DejaVu Sans Mono', monospace;
+    font-feature-settings: 'liga' 0, 'calt' 0;
+  }
+
+  .tui-caret::after {
+    content: '▌';
+    margin-left: 0.05em;
+    color: var(--tui-caret);
+    animation: tui-blink 1.06s steps(2, end) infinite;
+  }
+
+  @keyframes tui-blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes tui-flicker {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.96;
+    }
   }
 }

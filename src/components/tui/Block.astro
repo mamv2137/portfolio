@@ -1,0 +1,68 @@
+---
+type Tone = 'default' | 'accent' | 'success' | 'warn' | 'error' | 'info';
+
+export interface Props {
+  title?: string;
+  hint?: string;
+  tone?: Tone;
+  as?: keyof HTMLElementTagNameMap;
+  class?: string;
+}
+
+const {
+  title,
+  hint,
+  tone = 'default',
+  as: Tag = 'div',
+  class: className = '',
+} = Astro.props;
+
+const titleColor =
+  tone === 'accent' ? 'text-tui-accent'
+  : tone === 'success' ? 'text-tui-success'
+  : tone === 'warn' ? 'text-tui-warn'
+  : tone === 'error' ? 'text-tui-error'
+  : tone === 'info' ? 'text-tui-info'
+  : 'text-tui-accent';
+---
+
+<Tag class={`tui-block relative border border-tui-border bg-tui-bg-elev/40 font-tui ${className}`}>
+  {title && (
+    <span
+      class={`tui-block__title absolute -top-[0.65em] left-3 px-2 bg-tui-bg text-xs ${titleColor}`}
+    >
+      <span aria-hidden="true">┤</span> {title} <span aria-hidden="true">├</span>
+    </span>
+  )}
+  <span class="tui-corner tui-corner--tl" aria-hidden="true">┌</span>
+  <span class="tui-corner tui-corner--tr" aria-hidden="true">┐</span>
+  <span class="tui-corner tui-corner--bl" aria-hidden="true">└</span>
+  <span class="tui-corner tui-corner--br" aria-hidden="true">┘</span>
+
+  <div class="tui-block__body px-4 py-3">
+    <slot />
+  </div>
+
+  {hint && (
+    <span
+      class="tui-block__hint absolute -bottom-[0.65em] right-3 px-2 bg-tui-bg text-[10px] text-tui-muted"
+    >
+      <span aria-hidden="true">┤</span> {hint} <span aria-hidden="true">├</span>
+    </span>
+  )}
+</Tag>
+
+<style>
+  .tui-corner {
+    position: absolute;
+    color: var(--tui-border);
+    font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+    line-height: 1;
+    pointer-events: none;
+    font-size: 1rem;
+  }
+  .tui-corner--tl { top: -1px; left: -1px; transform: translate(-30%, -40%); }
+  .tui-corner--tr { top: -1px; right: -1px; transform: translate(30%, -40%); }
+  .tui-corner--bl { bottom: -1px; left: -1px; transform: translate(-30%, 40%); }
+  .tui-corner--br { bottom: -1px; right: -1px; transform: translate(30%, 40%); }
+</style>

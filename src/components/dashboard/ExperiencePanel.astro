@@ -1,0 +1,23 @@
+---
+import Panel from '@/components/tui/Panel.astro';
+import List from '@/components/tui/List.astro';
+import ListItem from '@/components/tui/ListItem.astro';
+import { experience } from '@/content/profile';
+---
+
+<Panel title="~/experience.tsx" hint="[ e ] experience">
+  <List ariaLabel="experience entries">
+    {experience.map((entry, i) => (
+      <ListItem selected={i === 0} meta={entry.range}>
+        <div class="flex flex-col">
+          <span class="text-tui-fg">
+            <span class="text-tui-accent">{entry.role}</span>
+            <span class="text-tui-muted"> · </span>
+            <span>{entry.company}</span>
+          </span>
+          <span class="text-tui-muted text-xs">{entry.summary}</span>
+        </div>
+      </ListItem>
+    ))}
+  </List>
+</Panel>

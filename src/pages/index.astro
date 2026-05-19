@@ -1,10 +1,8 @@
 ---
-import Hero from '@/components/Hero.astro';
 import Layout from '../layouts/Layout.astro';
+import Dashboard from '@/components/dashboard/Dashboard.astro';
+import BootOverlay from '@/components/boot/BootOverlay';
 import '@/styles/globals.css'
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <script is:inline>
@@ -17,15 +15,47 @@ import '@/styles/globals.css'
 	const isDark = getThemePreference() === 'dark';
 	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
 
+	const getMotionPreference = () => {
+		if (typeof localStorage !== 'undefined' && localStorage.getItem('tui:motion')) {
+			return localStorage.getItem('tui:motion');
+		}
+		return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : 'on';
+	};
+	const motionOff = getMotionPreference() === 'off';
+	document.documentElement.classList[motionOff ? 'add' : 'remove']('motion-off');
+
+	const getCrtPreference = () => {
+		if (typeof localStorage !== 'undefined') {
+			return localStorage.getItem('tui:crt') === 'on';
+		}
+		return false;
+	};
+	document.documentElement.classList[getCrtPreference() ? 'add' : 'remove']('crt-on');
+
+	const VALID_THEMES = ['catppuccin', 'monokai', 'dracula', 'nord', 'tokyo-night'];
+	const getThemePalette = () => {
+		if (typeof localStorage !== 'undefined') {
+			const stored = localStorage.getItem('tui:theme');
+			if (stored && VALID_THEMES.indexOf(stored) !== -1) return stored;
+		}
+		return 'catppuccin';
+	};
+	document.documentElement.setAttribute('data-theme', getThemePalette());
+
 	if (typeof localStorage !== 'undefined') {
 		const observer = new MutationObserver(() => {
-			const isDark = document.documentElement.classList.contains('dark');
-			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+			const root = document.documentElement;
+			localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+			localStorage.setItem('tui:motion', root.classList.contains('motion-off') ? 'off' : 'on');
+			localStorage.setItem('tui:crt', root.classList.contains('crt-on') ? 'on' : 'off');
+			const t = root.getAttribute('data-theme');
+			if (t) localStorage.setItem('tui:theme', t);
 		});
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
 	}
 </script>
 
-<Layout title="Mauricio Portfolio">
-	<Hero />
+<Layout title="mauro@portfolio:~$">
+	<Dashboard />
+	<BootOverlay client:load />
 </Layout>

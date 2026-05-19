@@ -1,0 +1,54 @@
+---
+export interface Props {
+  selected?: boolean;
+  marker?: string;
+  meta?: string;
+  href?: string;
+  external?: boolean;
+  class?: string;
+}
+
+const {
+  selected = false,
+  marker,
+  meta,
+  href,
+  external = false,
+  class: className = '',
+} = Astro.props;
+
+const resolvedMarker = marker ?? (selected ? '▸' : ' ');
+const isLink = !!href;
+const rowClasses = [
+  'group flex items-baseline gap-2 px-2 py-[2px] rounded-[2px]',
+  selected
+    ? 'bg-tui-selection text-tui-fg'
+    : 'text-tui-fg hover:bg-tui-selection/60',
+  isLink
+    ? 'cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tui-accent'
+    : '',
+  className,
+].join(' ');
+---
+
+<li role="listitem" aria-selected={selected ? 'true' : undefined}>
+  {isLink ? (
+    <a
+      href={href}
+      class={rowClasses}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
+      <span aria-hidden="true" class={`w-3 shrink-0 ${selected ? 'text-tui-accent' : 'text-tui-muted'}`}>{resolvedMarker}</span>
+      <span class="flex-1 min-w-0"><slot /></span>
+      {meta && <span class="text-tui-muted text-xs whitespace-nowrap">{meta}</span>}
+      {external && <span aria-hidden="true" class="text-tui-muted text-xs">↗</span>}
+    </a>
+  ) : (
+    <div class={rowClasses}>
+      <span aria-hidden="true" class={`w-3 shrink-0 ${selected ? 'text-tui-accent' : 'text-tui-muted'}`}>{resolvedMarker}</span>
+      <span class="flex-1 min-w-0"><slot /></span>
+      {meta && <span class="text-tui-muted text-xs whitespace-nowrap">{meta}</span>}
+    </div>
+  )}
+</li>

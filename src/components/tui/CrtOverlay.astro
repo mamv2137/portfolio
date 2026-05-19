@@ -1,0 +1,63 @@
+---
+// Renders a pointer-events: none scanline + vignette overlay.
+// Visibility is gated by the `crt-on` class on <html>.
+---
+
+<div class="crt-overlay" aria-hidden="true">
+  <div class="crt-overlay__scan"></div>
+  <div class="crt-overlay__vignette"></div>
+  <div class="crt-overlay__flicker"></div>
+</div>
+
+<style>
+  .crt-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 90;
+    display: none;
+  }
+  :global(html.crt-on) .crt-overlay {
+    display: block;
+  }
+  .crt-overlay__scan {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.15) 3px,
+      rgba(0, 0, 0, 0) 4px
+    );
+    mix-blend-mode: multiply;
+  }
+  .crt-overlay__vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0) 55%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
+  }
+  .crt-overlay__flicker {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.015);
+    animation: crt-flicker 4.2s steps(40, end) infinite;
+  }
+  @keyframes crt-flicker {
+    0%, 100% { opacity: 0.35; }
+    20% { opacity: 0.55; }
+    40% { opacity: 0.25; }
+    55% { opacity: 0.6; }
+    70% { opacity: 0.3; }
+    85% { opacity: 0.5; }
+  }
+  :global(html.motion-off) .crt-overlay__flicker,
+  :global(html[data-prefers-reduced-motion]) .crt-overlay__flicker {
+    animation: none;
+    opacity: 0.3;
+  }
+</style>

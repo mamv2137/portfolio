@@ -1,0 +1,25 @@
+---
+import Panel from '@/components/tui/Panel.astro';
+import List from '@/components/tui/List.astro';
+import ListItem from '@/components/tui/ListItem.astro';
+import Chip from '@/components/tui/Chip.astro';
+import { projects } from '@/content/profile';
+---
+
+<Panel title="~/projects.list" hint="[ p ] projects">
+  <List ariaLabel="projects">
+    {projects.map((p) => (
+      <ListItem href={p.href} external>
+        <div class="flex flex-col gap-1">
+          <span class="text-tui-accent">{p.title}</span>
+          <span class="text-tui-muted text-xs">{p.blurb}</span>
+          <span class="flex flex-wrap gap-1 mt-1">
+            {p.stack.map((s) => (
+              <Chip tone="muted">{s}</Chip>
+            ))}
+          </span>
+        </div>
+      </ListItem>
+    ))}
+  </List>
+</Panel>

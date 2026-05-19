@@ -1,0 +1,17 @@
+---
+import Panel from '@/components/tui/Panel.astro';
+import Sparkline from '@/components/tui/Sparkline';
+import ActivityFeed from './ActivityFeed';
+---
+
+<Panel title="~/activity.log" hint="tail -f">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3 text-xs font-tui text-tui-muted">
+      <span>commits/day</span>
+      <Sparkline client:visible live data={[2, 5, 3, 6, 4, 7, 5, 8, 6, 5, 9, 4]} liveRange={[1, 10]} />
+    </div>
+    <div class="border-t border-tui-border pt-2">
+      <ActivityFeed client:visible />
+    </div>
+  </div>
+</Panel>

@@ -1,0 +1,24 @@
+---
+import Panel from '@/components/tui/Panel.astro';
+import List from '@/components/tui/List.astro';
+import ListItem from '@/components/tui/ListItem.astro';
+import KeyHint from '@/components/tui/KeyHint.astro';
+import { contacts } from '@/content/profile';
+---
+
+<Panel title="~/contact.cfg" hint="[ k ] contact">
+  <List ariaLabel="contact channels">
+    {contacts.map((c) => {
+      const external = !c.href.startsWith('mailto:');
+      return (
+        <ListItem href={c.href} external={external}>
+          <span class="inline-flex items-center gap-2 min-w-0">
+            <KeyHint keys={[c.key]} class="shrink-0" />
+            <span class="text-tui-muted">{c.channel}:</span>
+            <span class="text-tui-fg truncate">{c.value}</span>
+          </span>
+        </ListItem>
+      );
+    })}
+  </List>
+</Panel>

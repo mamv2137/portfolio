@@ -1,0 +1,18 @@
+---
+import Panel from '@/components/tui/Panel.astro';
+import Gauge from '@/components/tui/Gauge';
+import { skills } from '@/content/profile';
+---
+
+<Panel title="~/skills.db" hint="[ s ] skills">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+    {skills.map((s) => (
+      <Gauge
+        client:visible
+        label={s.name}
+        value={s.level}
+        tone={s.level >= 0.9 ? 'success' : s.level >= 0.75 ? 'accent' : 'info'}
+      />
+    ))}
+  </div>
+</Panel>

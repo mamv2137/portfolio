@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '@/styles/globals.css';
+import Block from '@/components/tui/Block.astro';
+import Panel from '@/components/tui/Panel.astro';
+import StatusBar from '@/components/tui/StatusBar.astro';
+import KeyHint from '@/components/tui/KeyHint.astro';
+import Chip from '@/components/tui/Chip.astro';
+import List from '@/components/tui/List.astro';
+import ListItem from '@/components/tui/ListItem.astro';
+import Gauge from '@/components/tui/Gauge';
+import Sparkline from '@/components/tui/Sparkline';
+import Typewriter from '@/components/tui/Typewriter';
+import Caret from '@/components/tui/Caret';
+import Tabs from '@/components/tui/Tabs';
+---
+
+<Layout title="TUI preview">
+  <div class="font-tui text-tui-fg bg-tui-bg min-h-screen p-6 space-y-6">
+    <h1 class="text-lg text-tui-accent">tui · preview</h1>
+
+    <Block title="Block" hint="[ q ] quit">
+      <p>This is a Block with a titled top border and a hint on the bottom-right.</p>
+    </Block>
+
+    <Panel title="Panel (semantic section)" hint="[ ? ] help">
+      <p>Panel wraps Block and provides an sr-only heading for landmark semantics.</p>
+    </Panel>
+
+    <Block title="StatusBar">
+      <StatusBar
+        segments={[
+          { label: 'theme', value: '◐ dark', tone: 'accent' },
+          { label: 'branch', value: ' main', tone: 'info' },
+          { label: 'build', value: 'v1.0.0', tone: 'muted' },
+          { value: '[ t ] theme', tone: 'accent' },
+        ]}
+      />
+    </Block>
+
+    <Block title="KeyHint">
+      <div class="flex gap-4 flex-wrap">
+        <KeyHint keys={['q']} label="quit" />
+        <KeyHint keys={['Ctrl', 'K']} label="palette" />
+        <KeyHint keys={['t']} label="theme" as="button" />
+      </div>
+    </Block>
+
+    <Block title="Chip">
+      <div class="flex flex-wrap gap-1">
+        <Chip>react</Chip>
+        <Chip tone="accent">typescript</Chip>
+        <Chip tone="warn">wip</Chip>
+        <Chip tone="error">deprecated</Chip>
+        <Chip tone="info">node</Chip>
+        <Chip tone="muted">archived</Chip>
+      </div>
+    </Block>
+
+    <Block title="List">
+      <List>
+        <ListItem marker="✓">first item</ListItem>
+        <ListItem selected meta="2024">selected item</ListItem>
+        <ListItem href="https://example.com" external meta="↗ ext">link item</ListItem>
+        <ListItem marker="•">plain item</ListItem>
+      </List>
+    </Block>
+
+    <Block title="Gauge">
+      <div class="space-y-2">
+        <Gauge client:load label="React" value={0.95} />
+        <Gauge client:load label="Node" value={0.82} tone="info" />
+        <Gauge client:load label="Coffee" value={0.62} tone="warn" />
+      </div>
+    </Block>
+
+    <Block title="Sparkline">
+      <div class="flex items-center gap-6">
+        <Sparkline client:load data={[3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8]} />
+        <Sparkline client:load variant="line" data={[3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8]} />
+        <Sparkline client:load live data={[3, 1, 4, 1, 5, 9, 2, 6]} liveRange={[1, 10]} />
+      </div>
+    </Block>
+
+    <Block title="Typewriter + Caret">
+      <p>
+        <Typewriter
+          client:load
+          strings={[
+            'building things on the web since 2017',
+            'react · typescript · node · astro',
+          ]}
+        />
+      </p>
+      <p>plain caret: hello<Caret client:load /></p>
+    </Block>
+
+    <Block title="Tabs">
+      <Tabs
+        client:load
+        tabs={[
+          { id: 'a', label: 'about', content: <p>about content</p> },
+          { id: 'b', label: 'skills', content: <p>skills content</p> },
+          { id: 'c', label: 'projects', content: <p>projects content</p> },
+        ]}
+      />
+    </Block>
+  </div>
+</Layout>

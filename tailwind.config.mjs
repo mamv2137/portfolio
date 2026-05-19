@@ -9,6 +9,17 @@ export default {
     			md: 'calc(var(--radius) - 2px)',
     			sm: 'calc(var(--radius) - 4px)'
     		},
+    		fontFamily: {
+    			mono: [
+    				'"JetBrains Mono Variable"',
+    				'ui-monospace',
+    				'"JetBrains Mono"',
+    				'Menlo',
+    				'Consolas',
+    				'"DejaVu Sans Mono"',
+    				'monospace'
+    			]
+    		},
     		colors: {
     			background: 'hsl(var(--background))',
     			foreground: 'hsl(var(--foreground))',
@@ -49,6 +60,20 @@ export default {
     				'3': 'hsl(var(--chart-3))',
     				'4': 'hsl(var(--chart-4))',
     				'5': 'hsl(var(--chart-5))'
+    			},
+    			tui: {
+    				bg: 'var(--tui-bg)',
+    				'bg-elev': 'var(--tui-bg-elev)',
+    				fg: 'var(--tui-fg)',
+    				muted: 'var(--tui-muted)',
+    				border: 'var(--tui-border)',
+    				accent: 'var(--tui-accent)',
+    				success: 'var(--tui-success)',
+    				warn: 'var(--tui-warn)',
+    				error: 'var(--tui-error)',
+    				info: 'var(--tui-info)',
+    				selection: 'var(--tui-selection)',
+    				caret: 'var(--tui-caret)'
     			}
     		}
     	}

@@ -1,0 +1,30 @@
+---
+type Tone = 'default' | 'accent' | 'success' | 'warn' | 'error' | 'info' | 'muted';
+
+export interface Props {
+  tone?: Tone;
+  class?: string;
+}
+
+const { tone = 'default', class: className = '' } = Astro.props;
+
+const toneClass = (() => {
+  switch (tone) {
+    case 'accent': return 'border-tui-accent text-tui-accent';
+    case 'success': return 'border-tui-success text-tui-success';
+    case 'warn': return 'border-tui-warn text-tui-warn';
+    case 'error': return 'border-tui-error text-tui-error';
+    case 'info': return 'border-tui-info text-tui-info';
+    case 'muted': return 'border-tui-border text-tui-muted';
+    default: return 'border-tui-border text-tui-fg';
+  }
+})();
+---
+
+<span
+  class={`inline-flex items-center gap-1 border px-2 py-[1px] font-tui text-[10px] leading-tight ${toneClass} ${className}`}
+>
+  <span aria-hidden="true" class="opacity-60">[</span>
+  <slot />
+  <span aria-hidden="true" class="opacity-60">]</span>
+</span>

@@ -1,0 +1,40 @@
+---
+export interface Props {
+  keys: string[];
+  label?: string;
+  as?: 'span' | 'button' | 'a';
+  href?: string;
+  onClick?: string;
+  class?: string;
+  ariaLabel?: string;
+}
+
+const {
+  keys,
+  label,
+  as = 'span',
+  href,
+  class: className = '',
+  ariaLabel,
+} = Astro.props;
+
+const Tag = as;
+const chord = keys.join('+');
+const base =
+  'inline-flex items-center gap-1 font-tui text-xs leading-none whitespace-nowrap';
+const interactive =
+  as !== 'span'
+    ? ' cursor-pointer rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tui-accent hover:text-tui-accent'
+    : '';
+---
+
+<Tag
+  class={`${base}${interactive} ${className}`}
+  href={href}
+  aria-label={ariaLabel ?? (label ? `${chord}: ${label}` : chord)}
+>
+  <span aria-hidden="true" class="text-tui-accent">[</span>
+  <span class="text-tui-accent">{chord}</span>
+  <span aria-hidden="true" class="text-tui-accent">]</span>
+  {label && <span class="text-tui-fg">{label}</span>}
+</Tag>

@@ -1,0 +1,44 @@
+---
+import Panel from '@/components/tui/Panel.astro';
+import List from '@/components/tui/List.astro';
+import ListItem from '@/components/tui/ListItem.astro';
+import { bio } from '@/content/profile';
+
+const portrait = [
+  '   ▄▀▀▀▀▀▀▀▀▀▀▄   ',
+  '  █  ▄▄    ▄▄  █  ',
+  '  █  ██    ██  █  ',
+  '  █   ▀    ▀   █  ',
+  '  █    ▄▀▀▄    █  ',
+  '  █    ▀▀▀▀    █  ',
+  '   ▀▄▄▄▄▄▄▄▄▄▄▀   ',
+  '    █▀▀▀▀▀▀▀█     ',
+  '    █       █     ',
+];
+---
+
+<Panel title="~/about.md" hint="[ a ] about">
+  <div class="flex gap-4 items-start">
+    <div class="shrink-0 hidden sm:block border border-tui-border p-2 bg-tui-bg">
+      <pre
+        class="font-tui text-[10px] leading-[1.1] text-tui-accent select-none"
+        aria-label={`portrait of ${bio.name}`}
+      >{portrait.join('\n')}</pre>
+      <p class="font-tui text-[10px] text-tui-muted text-center mt-1" aria-hidden="true">~/avatar.txt</p>
+    </div>
+    <div class="flex-1 min-w-0 space-y-3">
+      <div>
+        <p class="font-tui text-lg text-tui-fg">{bio.greeting}</p>
+        <p class="font-tui text-xs text-tui-muted">{bio.subgreeting}</p>
+      </div>
+      <p class="font-tui text-sm text-tui-fg leading-relaxed">{bio.paragraph}</p>
+      <List ariaLabel="profile meta">
+        {bio.meta.map((m) => (
+          <ListItem marker="·" meta={m.value}>
+            <span class="text-tui-muted">{m.label}</span>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  </div>
+</Panel>

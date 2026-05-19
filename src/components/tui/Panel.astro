@@ -1,0 +1,21 @@
+---
+import Block from './Block.astro';
+
+type Tone = 'default' | 'accent' | 'success' | 'warn' | 'error' | 'info';
+
+export interface Props {
+  title: string;
+  hint?: string;
+  tone?: Tone;
+  headingLevel?: 2 | 3;
+  class?: string;
+}
+
+const { title, hint, tone, headingLevel = 2, class: className = '' } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+
+<Block title={title} hint={hint} tone={tone} as="section" class={className}>
+  <Heading class="sr-only">{title}</Heading>
+  <slot />
+</Block>
