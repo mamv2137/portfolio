@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useRef } from 'react';
 import { useMotion } from '../../lib/useMotion';
+import { useLang } from '../../lib/useLang';
 import { BOOT_SCRIPT, type BootLine } from '../../content/boot';
 
 type Phase = 'banner' | 'lines' | 'bars' | 'ready' | 'dismissing' | 'dismissed';
@@ -66,6 +67,7 @@ function rand(min: number, max: number) {
 
 export default function BootOverlay() {
   const motion = useMotion();
+  const lang = useLang();
   const [state, dispatch] = useReducer(reducer, initialState);
   const dismissed = useRef(false);
 
@@ -205,7 +207,7 @@ export default function BootOverlay() {
       <div className="max-w-3xl mx-auto px-5 py-6 sm:py-12 text-sm leading-relaxed">
         {BOOT_SCRIPT.banner.map((b, i) => (
           <p key={i} className={i === 0 ? 'text-tui-accent' : 'text-tui-muted'}>
-            {b}
+            {b[lang]}
           </p>
         ))}
         <div className="h-3" />
@@ -243,13 +245,13 @@ export default function BootOverlay() {
         )}
 
         {state.readyShown && (
-          <p className="mt-4 text-tui-success">{BOOT_SCRIPT.ready}</p>
+          <p className="mt-4 text-tui-success">{BOOT_SCRIPT.ready[lang]}</p>
         )}
       </div>
 
       <p className="absolute bottom-3 left-0 right-0 text-center text-xs text-tui-muted">
         <span aria-hidden="true" className="text-tui-accent">[</span>
-        <span className="text-tui-accent"> press any key to skip </span>
+        <span className="text-tui-accent"> {BOOT_SCRIPT.skipHint[lang]} </span>
         <span aria-hidden="true" className="text-tui-accent">]</span>
       </p>
     </div>

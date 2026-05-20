@@ -1,3 +1,5 @@
+import type { Localized } from '@/lib/useLang';
+
 export type BootLine = {
   tag: 'OK' | 'INFO' | 'WARN';
   text: string;
@@ -9,16 +11,23 @@ export type BootBar = {
 };
 
 export type BootScript = {
-  banner: string[];
+  banner: Localized[];
   lines: BootLine[];
   bars: BootBar[];
-  ready: string;
+  ready: Localized;
+  skipHint: Localized;
 };
 
 export const BOOT_SCRIPT: BootScript = {
   banner: [
-    'MAURO OS  v1.0.0  (terminal-portfolio build)',
-    'Copyright (c) 2026 — booting...',
+    {
+      en: 'MAURO OS  v1.0.0  (terminal-portfolio build)',
+      es: 'MAURO OS  v1.0.0  (build terminal-portfolio)',
+    },
+    {
+      en: 'Copyright (c) 2026 — booting...',
+      es: 'Copyright (c) 2026 — iniciando...',
+    },
   ],
   lines: [
     { tag: 'OK', text: 'mounting /home/mauro ...' },
@@ -37,5 +46,9 @@ export const BOOT_SCRIPT: BootScript = {
     { label: 'fonts ', durationMs: 700 },
     { label: 'links ', durationMs: 500 },
   ],
-  ready: 'ready.',
+  ready: { en: 'ready.', es: 'listo.' },
+  skipHint: {
+    en: 'press any key to skip',
+    es: 'pulsa cualquier tecla para saltar',
+  },
 };

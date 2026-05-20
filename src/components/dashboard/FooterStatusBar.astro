@@ -8,11 +8,13 @@ import { identity } from '@/content/profile';
   <StatusBar
     segments={[
       { label: 'theme', value: '◐ dark', tone: 'accent', id: 'seg-theme' },
+      { label: 'lang', value: 'en', tone: 'info', id: 'seg-lang' },
       { label: 'motion', value: 'on', tone: 'info', id: 'seg-motion', hideOnMobile: true },
       { label: 'crt', value: 'off', tone: 'muted', id: 'seg-crt', hideOnMobile: true },
       { label: 'branch', value: identity.branch, tone: 'muted', hideOnMobile: true },
       { label: 'build', value: identity.version, tone: 'muted', hideOnMobile: true },
       { value: '[ t ] light/dark', tone: 'accent', id: 'hint-theme' },
+      { value: '[ l ] lang', tone: 'accent', id: 'hint-lang' },
       { value: '[ m ] motion', tone: 'accent', id: 'hint-motion' },
       { value: '[ c ] crt', tone: 'accent', id: 'hint-crt' },
       { value: '[ ] ] palette', tone: 'accent', id: 'hint-palette' },
@@ -31,9 +33,13 @@ import { identity } from '@/content/profile';
     const isDark = root.classList.contains('dark');
     const motionOff = root.classList.contains('motion-off');
     const crtOn = root.classList.contains('crt-on');
+    const lang = root.getAttribute('data-lang') ?? 'en';
 
     const theme = document.querySelector('[data-segment="seg-theme"] > :last-child');
     if (theme) theme.textContent = isDark ? '◐ dark' : '◑ light';
+
+    const langSeg = document.querySelector('[data-segment="seg-lang"] > :last-child');
+    if (langSeg) langSeg.textContent = lang;
 
     const motion = document.querySelector('[data-segment="seg-motion"] > :last-child');
     if (motion) motion.textContent = motionOff ? 'off' : 'on';
@@ -52,6 +58,11 @@ import { identity } from '@/content/profile';
     const idx = VALID_THEMES.indexOf(current);
     const next = VALID_THEMES[(idx + direction + VALID_THEMES.length) % VALID_THEMES.length];
     root.setAttribute('data-theme', next);
+  };
+
+  const toggleLang = () => {
+    const current = root.getAttribute('data-lang') === 'es' ? 'es' : 'en';
+    root.setAttribute('data-lang', current === 'en' ? 'es' : 'en');
   };
 
   const isTypingTarget = (el: EventTarget | null) => {
@@ -75,6 +86,9 @@ import { identity } from '@/content/profile';
     } else if (k === 'c') {
       e.preventDefault();
       root.classList.toggle('crt-on');
+    } else if (k === 'l') {
+      e.preventDefault();
+      toggleLang();
     } else if (e.key === ']') {
       e.preventDefault();
       cyclePalette(1);
@@ -106,20 +120,22 @@ import { identity } from '@/content/profile';
   wireToggle('seg-motion', 'motion-off');
   wireToggle('seg-crt', 'crt-on');
 
-  const wirePaletteHint = () => {
-    const el = document.querySelector('[data-segment="hint-palette"]');
+  const wireCustom = (id: string, handler: () => void) => {
+    const el = document.querySelector(`[data-segment="${id}"]`);
     if (!el) return;
     el.setAttribute('role', 'button');
     el.setAttribute('tabindex', '0');
     el.classList.add('cursor-pointer', 'hover:text-tui-accent');
-    el.addEventListener('click', () => cyclePalette(1));
+    el.addEventListener('click', handler);
     el.addEventListener('keydown', (ev) => {
       const ke = ev as KeyboardEvent;
       if (ke.key === 'Enter' || ke.key === ' ') {
         ev.preventDefault();
-        cyclePalette(1);
+        handler();
       }
     });
   };
-  wirePaletteHint();
+  wireCustom('hint-palette', () => cyclePalette(1));
+  wireCustom('hint-lang', toggleLang);
+  wireCustom('seg-lang', toggleLang);
 </script>

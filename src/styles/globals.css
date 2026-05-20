@@ -244,6 +244,14 @@ html.motion-off *::after {
   transition-duration: 0.001ms !important;
 }
 
+/* ── i18n: dual-render + CSS hide ──────────────────────────────────── */
+html[data-lang='en'] [data-lang='es'] {
+  display: none !important;
+}
+html[data-lang='es'] [data-lang='en'] {
+  display: none !important;
+}
+
 /* ── TUI utility classes ───────────────────────────────────────────── */
 @layer utilities {
   .font-tui {

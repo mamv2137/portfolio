@@ -2,6 +2,7 @@
 import Panel from '@/components/tui/Panel.astro';
 import List from '@/components/tui/List.astro';
 import ListItem from '@/components/tui/ListItem.astro';
+import T from '@/components/tui/T.astro';
 import { bio } from '@/content/profile';
 
 const portrait = [
@@ -28,14 +29,25 @@ const portrait = [
     </div>
     <div class="flex-1 min-w-0 space-y-3">
       <div>
-        <p class="font-tui text-lg text-tui-fg">{bio.greeting}</p>
-        <p class="font-tui text-xs text-tui-muted">{bio.subgreeting}</p>
+        <p class="font-tui text-lg text-tui-fg">
+          <T en={bio.greeting.en} es={bio.greeting.es} />
+        </p>
+        <p class="font-tui text-xs text-tui-muted">
+          <T en={bio.subgreeting.en} es={bio.subgreeting.es} />
+        </p>
       </div>
-      <p class="font-tui text-sm text-tui-fg leading-relaxed">{bio.paragraph}</p>
+      <p class="font-tui text-sm text-tui-fg leading-relaxed">
+        <T en={bio.paragraph.en} es={bio.paragraph.es} />
+      </p>
       <List ariaLabel="profile meta">
         {bio.meta.map((m) => (
-          <ListItem marker="·" meta={m.value}>
-            <span class="text-tui-muted">{m.label}</span>
+          <ListItem marker="·">
+            <span class="flex items-baseline justify-between gap-2 w-full">
+              <span class="text-tui-muted"><T en={m.label.en} es={m.label.es} /></span>
+              <span class="text-tui-fg text-xs whitespace-nowrap">
+                <T en={m.value.en} es={m.value.es} />
+              </span>
+            </span>
           </ListItem>
         ))}
       </List>

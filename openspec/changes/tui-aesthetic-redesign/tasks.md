@@ -95,3 +95,15 @@
 - [x] 11.8 Add `theme:` segment + `[ ] ] theme` key hint to `FooterStatusBar`, clickable to cycle
 - [x] 11.9 Smoke-test all themes in browser at desktop width (dark + light each) — verify no contrast regressions, no console errors
 - [x] 11.10 Confirm reload preserves the chosen `data-theme` alongside `dark`/`motion-off`/`crt-on`
+
+## 12. Language toggle (en · es)
+
+- [x] 12.1 Extend the inline script in `src/pages/index.astro` to read `localStorage["tui:lang"]` (fallback to `navigator.language.startsWith('es') ? 'es' : 'en'`) and set `data-lang` on `<html>`; extend the `MutationObserver` to persist `data-lang` changes
+- [x] 12.2 Add CSS rules in `globals.css` so `html[data-lang="en"] [data-lang="es"]` and `html[data-lang="es"] [data-lang="en"]` resolve to `display: none` (rendering dual + CSS hide pattern)
+- [x] 12.3 Create `src/lib/useLang.ts` exporting `LANGS`, `useLang()`, `setLang()`, `toggleLang()`
+- [x] 12.4 Create `src/components/tui/T.astro` and `src/components/tui/TR.tsx` — `<T en="..." es="..." />` renders both spans tagged with `data-lang`; React variant for islands that need strings (Typewriter)
+- [x] 12.5 Refactor `src/content/profile.ts`: introduce `Localized = { en: string; es: string }` type; localize `bio.greeting`, `bio.subgreeting`, `bio.paragraph`, `bio.meta` labels/values, `bio.taglines`, `experience[].summary`, `projects[].blurb`
+- [x] 12.6 Localize natural-language strings in `src/content/boot.ts` (banner second line, `ready.`, skip hint) — keep technical `[ OK ]` lines in English (terminal authenticity)
+- [x] 12.7 Update Astro panels (`AboutPanel`, `ExperiencePanel`, `ProjectsPanel`) and `HeaderBar` to consume localized strings via `<T>`; update `Typewriter` to receive a `lang`-aware string set from `useLang()`
+- [x] 12.8 Wire `l` keypress to toggle lang in `FooterStatusBar` script (no conflict: contact `key:'l'` is decorative); add `lang:` segment + `[ l ] lang` key hint, both clickable
+- [x] 12.9 Build + browser smoke test: toggle lang, confirm all localized strings swap instantly, persistence on reload, no console errors, no layout shift

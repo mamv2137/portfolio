@@ -2,6 +2,7 @@
 import Panel from '@/components/tui/Panel.astro';
 import List from '@/components/tui/List.astro';
 import ListItem from '@/components/tui/ListItem.astro';
+import T from '@/components/tui/T.astro';
 import { experience } from '@/content/profile';
 ---
 
@@ -15,7 +16,9 @@ import { experience } from '@/content/profile';
             <span class="text-tui-muted"> · </span>
             <span>{entry.company}</span>
           </span>
-          <span class="text-tui-muted text-xs">{entry.summary}</span>
+          <span class="text-tui-muted text-xs">
+            <T en={entry.summary.en} es={entry.summary.es} />
+          </span>
         </div>
       </ListItem>
     ))}

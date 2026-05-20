@@ -3,6 +3,7 @@ import Panel from '@/components/tui/Panel.astro';
 import List from '@/components/tui/List.astro';
 import ListItem from '@/components/tui/ListItem.astro';
 import Chip from '@/components/tui/Chip.astro';
+import T from '@/components/tui/T.astro';
 import { projects } from '@/content/profile';
 ---
 
@@ -12,7 +13,9 @@ import { projects } from '@/content/profile';
       <ListItem href={p.href} external>
         <div class="flex flex-col gap-1">
           <span class="text-tui-accent">{p.title}</span>
-          <span class="text-tui-muted text-xs">{p.blurb}</span>
+          <span class="text-tui-muted text-xs">
+            <T en={p.blurb.en} es={p.blurb.es} />
+          </span>
           <span class="flex flex-wrap gap-1 mt-1">
             {p.stack.map((s) => (
               <Chip tone="muted">{s}</Chip>

@@ -42,6 +42,16 @@ import '@/styles/globals.css'
 	};
 	document.documentElement.setAttribute('data-theme', getThemePalette());
 
+	const VALID_LANGS = ['en', 'es'];
+	const getLangPreference = () => {
+		if (typeof localStorage !== 'undefined') {
+			const stored = localStorage.getItem('tui:lang');
+			if (stored && VALID_LANGS.indexOf(stored) !== -1) return stored;
+		}
+		return (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+	};
+	document.documentElement.setAttribute('data-lang', getLangPreference());
+
 	if (typeof localStorage !== 'undefined') {
 		const observer = new MutationObserver(() => {
 			const root = document.documentElement;
@@ -50,8 +60,10 @@ import '@/styles/globals.css'
 			localStorage.setItem('tui:crt', root.classList.contains('crt-on') ? 'on' : 'off');
 			const t = root.getAttribute('data-theme');
 			if (t) localStorage.setItem('tui:theme', t);
+			const l = root.getAttribute('data-lang');
+			if (l) localStorage.setItem('tui:lang', l);
 		});
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme', 'data-lang'] });
 	}
 </script>
 

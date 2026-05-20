@@ -1,7 +1,6 @@
 ---
 import { identity, bio } from '@/content/profile';
-import Typewriter from '@/components/tui/Typewriter';
-import Caret from '@/components/tui/Caret';
+import HeaderTagline from './HeaderTagline';
 import Clock from './Clock';
 ---
 
@@ -16,7 +15,7 @@ import Clock from './Clock';
   <span class="text-tui-accent">$</span>
 
   <span class="ml-1 text-tui-fg min-w-0 flex-1 truncate">
-    <Typewriter client:idle strings={bio.taglines} />
+    <HeaderTagline client:idle en={bio.taglines.en} es={bio.taglines.es} />
   </span>
 
   <span class="ml-auto inline-flex items-center gap-3 text-xs">
