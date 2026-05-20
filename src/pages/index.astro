@@ -71,3 +71,60 @@ import '@/styles/globals.css'
 	<Dashboard />
 	<BootOverlay client:load />
 </Layout>
+
+<script>
+  import { IDLE_TITLES } from '@/content/idle';
+
+  const originalTitle = document.title;
+  let timer: number | null = null;
+
+  const rand = (min: number, max: number) => Math.random() * (max - min) + min;
+
+  const pickIdle = (prev: string): string => {
+    let next = IDLE_TITLES[Math.floor(Math.random() * IDLE_TITLES.length)];
+    let guard = 0;
+    while (next === prev && guard < 4) {
+      next = IDLE_TITLES[Math.floor(Math.random() * IDLE_TITLES.length)];
+      guard++;
+    }
+    return next;
+  };
+
+  const stop = () => {
+    if (timer !== null) {
+      window.clearTimeout(timer);
+      timer = null;
+    }
+  };
+
+  const tick = () => {
+    if (document.visibilityState === 'visible') return;
+    document.title = pickIdle(document.title);
+    timer = window.setTimeout(tick, rand(2000, 4000));
+  };
+
+  const onVisibilityChange = () => {
+    if (document.documentElement.classList.contains('motion-off')) {
+      document.title = originalTitle;
+      stop();
+      return;
+    }
+    if (document.visibilityState === 'visible') {
+      document.title = originalTitle;
+      stop();
+    } else {
+      stop();
+      document.title = pickIdle('');
+      timer = window.setTimeout(tick, rand(2000, 4000));
+    }
+  };
+
+  document.addEventListener('visibilitychange', onVisibilityChange);
+
+  // also restore on focus / clean up on pagehide
+  window.addEventListener('focus', () => {
+    document.title = originalTitle;
+    stop();
+  });
+  window.addEventListener('pagehide', stop);
+</script>

@@ -62,7 +62,7 @@ export const bio = {
   meta: [
     {
       label: { en: 'role', es: 'rol' },
-      value: { en: 'Frontend Developer', es: 'Desarrollador Frontend' },
+      value: { en: 'Software Engineer', es: 'Ingeniero de Software' },
     },
     {
       label: { en: 'years', es: 'años' },

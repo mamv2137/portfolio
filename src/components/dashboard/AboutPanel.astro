@@ -1,7 +1,5 @@
 ---
 import Panel from '@/components/tui/Panel.astro';
-import List from '@/components/tui/List.astro';
-import ListItem from '@/components/tui/ListItem.astro';
 import T from '@/components/tui/T.astro';
 import { bio } from '@/content/profile';
 
@@ -39,18 +37,21 @@ const portrait = [
       <p class="font-tui text-sm text-tui-fg leading-relaxed">
         <T en={bio.paragraph.en} es={bio.paragraph.es} />
       </p>
-      <List ariaLabel="profile meta">
+      <dl
+        class="grid grid-cols-1 sm:grid-cols-2 gap-2"
+        aria-label="profile meta"
+      >
         {bio.meta.map((m) => (
-          <ListItem marker="·">
-            <span class="flex items-baseline justify-between gap-2 w-full">
-              <span class="text-tui-muted"><T en={m.label.en} es={m.label.es} /></span>
-              <span class="text-tui-fg text-xs whitespace-nowrap">
-                <T en={m.value.en} es={m.value.es} />
-              </span>
-            </span>
-          </ListItem>
+          <div class="border border-tui-border bg-tui-bg-elev/40 px-3 py-2 flex flex-col gap-[2px]">
+            <dt class="font-tui text-[10px] text-tui-muted uppercase tracking-wide">
+              <T en={m.label.en} es={m.label.es} />
+            </dt>
+            <dd class="font-tui text-sm text-tui-fg leading-tight">
+              <T en={m.value.en} es={m.value.es} />
+            </dd>
+          </div>
         ))}
-      </List>
+      </dl>
     </div>
   </div>
 </Panel>

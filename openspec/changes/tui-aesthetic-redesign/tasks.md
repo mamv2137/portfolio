@@ -107,3 +107,16 @@
 - [x] 12.7 Update Astro panels (`AboutPanel`, `ExperiencePanel`, `ProjectsPanel`) and `HeaderBar` to consume localized strings via `<T>`; update `Typewriter` to receive a `lang`-aware string set from `useLang()`
 - [x] 12.8 Wire `l` keypress to toggle lang in `FooterStatusBar` script (no conflict: contact `key:'l'` is decorative); add `lang:` segment + `[ l ] lang` key hint, both clickable
 - [x] 12.9 Build + browser smoke test: toggle lang, confirm all localized strings swap instantly, persistence on reload, no console errors, no layout shift
+
+## 13. Identity tweaks (role, favicon, meta grid)
+
+- [x] 13.1 Update `bio.meta` in `src/content/profile.ts`: `role` value EN `Frontend Developer` → `Software Engineer`, ES `Desarrollador Frontend` → `Ingeniero de Software`
+- [x] 13.2 Replace `public/favicon.svg` with an on-brand TUI favicon (bordered box + `$` prompt + caret) using theme accent colors and a dark-mode media query
+- [x] 13.3 Refactor the meta section in `AboutPanel.astro` from a single vertical list to a 2-column grid of mini bordered cards (label on top muted, value below in `fg`) — denser and more "card-like"
+- [x] 13.4 Build + browser smoke test (en + es): confirm the role now reads `Software Engineer` / `Ingeniero de Software`, favicon renders in the browser tab, and the meta cards lay out 2×2 on desktop, 1-col on mobile
+
+## 14. Idle tab title — terminal-style title cycling on blur
+
+- [x] 14.1 Create `src/content/idle.ts` exporting `IDLE_TITLES: string[]` — ~12-18 terminal-style strings (e.g. `$ idle...`, `[ AFK ] zZz`, `$ tail -f activity.log`, `you closed the tab? :(`, etc.)
+- [x] 14.2 Add a `<script>` block to `src/pages/index.astro` that: stores the original title, listens for `visibilitychange`, when hidden cycles random `IDLE_TITLES` every 2-4s (jittered); when visible restores the original title; gates on `html.motion-off` (no cycling if motion off)
+- [x] 14.3 Build + browser smoke test: confirm `document.title` changes when tab is hidden and restores when visible; no console errors
